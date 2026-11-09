@@ -2,7 +2,7 @@
 HARGUNS CALCULATOR 🤍
 Pastel Blue Ocean Theme featuring animated flying seagulls, gentle ocean waves,
 an illuminated high-contrast display, an infinite scrollable running tape,
-and tappable past calculations.
+and bright, high-visibility buttons.
 """
 
 import streamlit as st
@@ -16,23 +16,49 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling (CSS): Pastel Blue Aesthetic + Illuminated Display + Flying Seagulls + Ocean Waves
+# Custom Styling (CSS)
 st.markdown("""
 <style>
+    /* =========================================
+       PAGE FLOW & HEADER CLEARANCE
+       Prevents title from being cut off at the top
+       ========================================= */
+    header[data-testid="stHeader"],
+    [data-testid="stHeader"] {
+        background: transparent !important;
+        position: static !important;
+        height: auto !important;
+    }
+
+    .block-container {
+        max-width: 1100px;
+        padding-top: 1.5rem !important;
+        padding-bottom: 5rem !important;
+        position: relative;
+        z-index: 10;
+    }
+
     /* Background & Global Container */
     .stApp {
         background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 30%, #bae6fd 65%, #7dd3fc 100%) fixed !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
         color: #0c4a6e;
-        overflow-x: hidden;
     }
 
-    .block-container {
-        max-width: 1100px;
-        padding-top: 1.2rem;
-        padding-bottom: 3.5rem;
-        position: relative;
-        z-index: 10;
+    /* Sidebar matching Pastel Ocean Theme */
+    section[data-testid="stSidebar"],
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%) !important;
+        border-right: 2px solid #bae6fd !important;
+    }
+    
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div {
+        color: #0369a1 !important;
     }
 
     /* =========================================
@@ -210,47 +236,86 @@ st.markdown("""
     }
 
     /* =========================================
-       BUTTON STYLING (BRIGHT & CRISP TYPOGRAPHY)
+       UNIVERSAL BUTTON STYLING (CRISP WHITE BUTTONS, HIGH VISIBILITY)
+       Works across both Light Mode and Dark Mode!
        ========================================= */
-    div[data-testid="column"] button {
+    .stButton > button,
+    button[data-testid="baseButton-secondary"],
+    button[data-testid="stBaseButton-secondary"],
+    button[kind="secondary"],
+    div[data-testid="column"] button,
+    div[data-testid="stColumn"] button,
+    div[data-testid="stHorizontalBlock"] button {
         width: 100% !important;
-        height: 54px !important;
-        font-size: 1.35rem !important;
+        height: 56px !important;
+        font-size: 1.45rem !important;
         font-weight: 800 !important;
         border-radius: 14px !important;
-        border: 2px solid #bae6fd !important;
+        border: 2.5px solid #bae6fd !important;
         background: #ffffff !important;
-        color: #0369a1 !important;
-        transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 4px 10px rgba(2, 132, 199, 0.12) !important;
+        background-color: #ffffff !important;
+        color: #0284c7 !important;
+        transition: all 0.16s ease-in-out !important;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.14) !important;
         margin-bottom: 7px !important;
     }
 
-    div[data-testid="column"] button:hover {
-        transform: translateY(-2px);
-        background: #e0f2fe !important;
-        border-color: #38bdf8 !important;
-        box-shadow: 0 8px 18px rgba(2, 132, 199, 0.22) !important;
+    /* Force button inner text to be large, bright, and bold */
+    .stButton > button p,
+    .stButton > button span,
+    .stButton > button div,
+    div[data-testid="column"] button p,
+    div[data-testid="stColumn"] button p,
+    div[data-testid="stColumn"] button span {
         color: #0284c7 !important;
+        font-size: 1.45rem !important;
+        font-weight: 800 !important;
     }
 
-    div[data-testid="column"] button:active {
-        transform: translateY(1px);
-        box-shadow: 0 2px 5px rgba(2, 132, 199, 0.15) !important;
+    /* Hover State for Buttons */
+    .stButton > button:hover,
+    button[data-testid="baseButton-secondary"]:hover,
+    button[data-testid="stBaseButton-secondary"]:hover,
+    div[data-testid="stColumn"] button:hover {
+        transform: translateY(-2px);
+        background: #e0f2fe !important;
+        background-color: #e0f2fe !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 8px 18px rgba(2, 132, 199, 0.25) !important;
+    }
+
+    .stButton > button:hover p,
+    .stButton > button:hover span,
+    div[data-testid="stColumn"] button:hover p {
+        color: #0369a1 !important;
     }
 
     /* Primary Accent Button (Equals =) */
-    div[data-testid="column"] button[kind="primary"] {
+    .stButton > button[kind="primary"],
+    button[data-testid="baseButton-primary"],
+    button[data-testid="stBaseButton-primary"],
+    div[data-testid="stColumn"] button[kind="primary"] {
         background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%) !important;
+        background-color: #0284c7 !important;
         color: #ffffff !important;
-        font-size: 1.65rem !important;
-        font-weight: 900 !important;
         border: none !important;
         box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
     }
 
-    div[data-testid="column"] button[kind="primary"]:hover {
+    .stButton > button[kind="primary"] p,
+    .stButton > button[kind="primary"] span,
+    button[data-testid="baseButton-primary"] p,
+    div[data-testid="stColumn"] button[kind="primary"] p {
+        color: #ffffff !important;
+        font-size: 1.75rem !important;
+        font-weight: 900 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .stButton > button[kind="primary"]:hover,
+    button[data-testid="baseButton-primary"]:hover {
         background: linear-gradient(135deg, #7dd3fc 0%, #0369a1 100%) !important;
+        background-color: #0369a1 !important;
         box-shadow: 0 8px 24px rgba(2, 132, 199, 0.55) !important;
     }
 
@@ -297,25 +362,21 @@ st.markdown("""
 
 <!-- Animated Flying Seagulls HTML in the Sky -->
 <div class="seagull-sky">
-    <!-- Seagull 1 -->
     <div class="seagull seagull-1">
         <svg viewBox="0 0 80 30">
             <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
         </svg>
     </div>
-    <!-- Seagull 2 -->
     <div class="seagull seagull-2">
         <svg viewBox="0 0 80 30">
             <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
         </svg>
     </div>
-    <!-- Seagull 3 -->
     <div class="seagull seagull-3">
         <svg viewBox="0 0 80 30">
             <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
         </svg>
     </div>
-    <!-- Seagull 4 -->
     <div class="seagull seagull-4">
         <svg viewBox="0 0 80 30">
             <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
@@ -371,10 +432,10 @@ with st.sidebar:
         - `pi`: 3.14159, `e`: 2.71828
         """)
 
-# Header Banner with HARGUNS CALCULATOR 🤍
+# Header Banner with HARGUNS CALCULATOR 🤍 (plenty of clearance, fully visible)
 header_col1, header_col2 = st.columns([3, 1])
 with header_col1:
-    st.markdown("<h1 style='color: #0284c7; font-size: 2.4rem; font-weight: 800; margin-bottom: 2px;'>HARGUNS CALCULATOR 🤍</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #0284c7; font-size: 2.5rem; font-weight: 800; margin-top: 0; margin-bottom: 2px;'>HARGUNS CALCULATOR 🤍</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #0369a1; font-size: 1.05rem; font-weight: 600; margin-top: 0;'>Pastel Ocean • Flying Seagulls • High-Contrast Screen • Infinite History Tape</p>", unsafe_allow_html=True)
 with header_col2:
     mode = st.radio("Input Mode", ["Keypad", "Formula Bar"], horizontal=True, label_visibility="collapsed")

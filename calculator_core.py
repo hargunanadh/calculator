@@ -357,3 +357,28 @@ class CalculatorState:
 
     def clear_history(self) -> None:
         self.history.clear()
+
+    def insert_result(self, result_val: Union[int, float, str]) -> None:
+        """Instantly inserts a tapped result value into current expression."""
+        val_str = str(result_val)
+        if self.expression in ("0", "Error: Division by zero", "Error: Invalid syntax") or self.expression.startswith("Error:") or self.just_calculated:
+            self.expression = val_str
+        elif self.expression[-1] in "+-×÷*/^ ":
+            self.expression += val_str
+        else:
+            self.expression += f" {val_str}"
+        self.just_calculated = False
+
+    def append_result(self, result_val: Union[int, float, str], op: str = "+") -> None:
+        """Appends operator and tapped result value to active calculation."""
+        val_str = str(result_val)
+        if self.expression in ("0", "Error: Division by zero", "Error: Invalid syntax") or self.expression.startswith("Error:"):
+            self.expression = val_str
+        else:
+            self.expression += f" {op} {val_str}"
+        self.just_calculated = False
+
+    def load_expression(self, expr: str) -> None:
+        """Loads a previous equation string back into active expression for editing."""
+        self.expression = expr
+        self.just_calculated = False

@@ -1,20 +1,27 @@
-# 🧮 Modern Streamlit Calculator Pro
+# 🌊 Modern Pastel Ocean Calculator Pro
 
-A feature-rich, interactive, and beautifully designed calculator application built with Python and Streamlit.
+A feature-rich, interactive, and beautifully designed calculator application built with Python and Streamlit, styled in a soothing pastel blue theme with animated ocean waves.
 
 ## ✨ Features
 
-- **All Basic Arithmetic Operations**:
+- **🎨 Soothing Pastel Blue & Ocean Waves Theme**:
+  - Calming pastel sky-to-ocean palette (`#f0f9ff`, `#e0f2fe`, `#bae6fd`, `#7dd3fc`, `#0284c7`).
+  - Animated, multi-layered undulating ocean waves in the background.
+  - Translucent glassmorphism cards with smooth hover animations.
+- **📜 Infinite Scrollable History (Running Tape)**:
+  - Running tape of all past calculations that you can scroll through without losing previous work.
+  - Item counter and one-click clear options.
+- **👆 Tappable Previous Results & Equations**:
+  - **📥 Insert**: Tap any past result to immediately set it as the active display value.
+  - **➕ Add**: Chain `+ [Result]` directly into your current formula.
+  - **🔁 Reload**: Re-load the original formula back onto the screen to modify or re-evaluate.
+- **All Basic & Advanced Arithmetic Operations**:
   - Addition (`+`), Subtraction (`−`), Multiplication (`×`), Division (`÷`)
   - Modulo (`%`), Exponentiation / Power (`x^y`), Square Root (`√`), Reciprocal (`1/x`), Negation (`±`)
   - Order of operations precedence and parentheses support: `(2 + 3) * 4`
 - **Memory Operations**:
-  - `M+` (Add to memory)
-  - `M-` (Subtract from memory)
-  - `MR` (Recall memory)
-  - `MC` (Clear memory)
-  - Active memory status indicator
-- **Interactive Dual-Mode UI**:
+  - `M+` (Add to memory), `M-` (Subtract from memory), `MR` (Recall memory), `MC` (Clear memory)
+- **Dual-Mode Input**:
   - **Keypad Mode**: Touch/Click buttons just like a physical or smartphone calculator.
   - **Formula Bar Mode**: Direct keyboard input for complex mathematical expressions.
 - **Scientific Functions Drawer**:
@@ -22,14 +29,10 @@ A feature-rich, interactive, and beautifully designed calculator application bui
   - Logarithmic: `log` (base 10), `ln` (natural log)
   - Math constants: `π` (pi), `e`
   - Factorial: `n!`
-- **Calculation History**:
-  - Chronological history with timestamps
-  - One-click restore: load any past result straight back into the calculator
-  - Clear history option
 - **Safe & Robust Engine**:
   - Safe evaluation using Python AST (Abstract Syntax Tree) — zero arbitrary code execution (`no unsafe eval()`)
   - Division by zero and syntax error protection
-  - Elimination of floating point precision artifacts (e.g. `0.1 + 0.2 = 0.3`)
+  - Floating point precision compensation (e.g. `0.1 + 0.2 = 0.3`)
 
 ---
 

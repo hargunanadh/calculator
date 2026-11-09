@@ -303,3 +303,30 @@ class TestCalculatorState:
         # Pressing a new number clears the error and begins fresh
         calc.handle_input("8")
         assert calc.expression == "8"
+
+    def test_tappable_history_actions(self):
+        calc = CalculatorState()
+        # Initial calculation: 12 * 5 = 60
+        calc.handle_input("1")
+        calc.handle_input("2")
+        calc.handle_input("×")
+        calc.handle_input("5")
+        calc.handle_input("=")
+        assert calc.expression == "60"
+        assert len(calc.history) == 1
+
+        # Test insert_result replaces when just_calculated is True
+        calc.insert_result(100)
+        assert calc.expression == "100"
+
+        # Test append_result
+        calc.append_result(25, "+")
+        assert calc.expression == "100 + 25"
+
+        # Evaluate it
+        calc.handle_input("=")
+        assert calc.expression == "125"
+
+        # Test load_expression
+        calc.load_expression("12 × 5")
+        assert calc.expression == "12 × 5"

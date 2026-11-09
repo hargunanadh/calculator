@@ -1,7 +1,8 @@
 """
-Modern Pastel Blue Ocean Calculator Application
-Featuring an infinite scrollable running tape, tappable past calculations,
-interactive pastel buttons, and an animated ocean wave background.
+HARGUNS CALCULATOR 🤍
+Pastel Blue Ocean Theme featuring animated flying seagulls, gentle ocean waves,
+an illuminated high-contrast display, an infinite scrollable running tape,
+and tappable past calculations.
 """
 
 import streamlit as st
@@ -9,13 +10,13 @@ from calculator_core import CalculatorEngine, CalculatorState
 
 # Page configuration
 st.set_page_config(
-    page_title="Pastel Ocean Calculator",
-    page_icon="🌊",
+    page_title="HARGUNS CALCULATOR 🤍",
+    page_icon="🤍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling (CSS): Pastel Blue Aesthetic + Ocean Waves Animation
+# Custom Styling (CSS): Pastel Blue Aesthetic + Illuminated Display + Flying Seagulls + Ocean Waves
 st.markdown("""
 <style>
     /* Background & Global Container */
@@ -23,17 +24,109 @@ st.markdown("""
         background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 30%, #bae6fd 65%, #7dd3fc 100%) fixed !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
         color: #0c4a6e;
+        overflow-x: hidden;
     }
 
     .block-container {
         max-width: 1100px;
         padding-top: 1.2rem;
-        padding-bottom: 3rem;
+        padding-bottom: 3.5rem;
         position: relative;
         z-index: 10;
     }
 
-    /* Ocean Waves Animation Container */
+    /* =========================================
+       ANIMATED FLYING SEAGULLS IN THE SKY
+       ========================================= */
+    .seagull-sky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 45vh;
+        pointer-events: none;
+        z-index: 2;
+        overflow: hidden;
+    }
+
+    .seagull {
+        position: absolute;
+        will-change: transform, left;
+    }
+
+    .seagull svg {
+        display: block;
+        filter: drop-shadow(0 3px 6px rgba(2, 132, 199, 0.28));
+        animation: seagull-flap 1.4s ease-in-out infinite alternate;
+    }
+
+    .seagull-1 {
+        top: 8%;
+        left: -80px;
+        width: 48px;
+        animation: fly-across-1 22s linear infinite;
+    }
+
+    .seagull-2 {
+        top: 18%;
+        left: -80px;
+        width: 34px;
+        animation: fly-across-2 29s linear infinite;
+        animation-delay: 5s;
+    }
+
+    .seagull-3 {
+        top: 13%;
+        left: -80px;
+        width: 42px;
+        animation: fly-across-3 20s linear infinite;
+        animation-delay: 11s;
+    }
+
+    .seagull-4 {
+        top: 5%;
+        left: -80px;
+        width: 26px;
+        opacity: 0.85;
+        animation: fly-across-4 36s linear infinite;
+        animation-delay: 17s;
+    }
+
+    @keyframes seagull-flap {
+        0% { transform: scaleY(1) rotate(0deg); }
+        50% { transform: scaleY(0.45) rotate(-2deg); }
+        100% { transform: scaleY(0.95) rotate(1deg); }
+    }
+
+    @keyframes fly-across-1 {
+        0% { left: -80px; transform: translateY(0); }
+        30% { transform: translateY(-16px); }
+        70% { transform: translateY(12px); }
+        100% { left: 105vw; transform: translateY(-5px); }
+    }
+
+    @keyframes fly-across-2 {
+        0% { left: -80px; transform: translateY(0); }
+        40% { transform: translateY(20px); }
+        80% { transform: translateY(-15px); }
+        100% { left: 105vw; transform: translateY(5px); }
+    }
+
+    @keyframes fly-across-3 {
+        0% { left: -80px; transform: translateY(0); }
+        50% { transform: translateY(-24px); }
+        100% { left: 105vw; transform: translateY(8px); }
+    }
+
+    @keyframes fly-across-4 {
+        0% { left: -80px; transform: translateY(0); }
+        50% { transform: translateY(10px); }
+        100% { left: 105vw; transform: translateY(-8px); }
+    }
+
+    /* =========================================
+       OCEAN WAVES ANIMATION AT THE BOTTOM
+       ========================================= */
     .ocean-wrapper {
         position: fixed;
         bottom: 0;
@@ -82,145 +175,155 @@ st.markdown("""
         100% { transform: translateX(-50%); }
     }
 
-    /* Glassmorphism Calculator & Tape Card Containers */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 2px solid rgba(255, 255, 255, 0.95);
-        border-radius: 26px;
-        padding: 24px;
-        box-shadow: 0 18px 45px -10px rgba(2, 132, 199, 0.18), 0 4px 15px rgba(56, 189, 248, 0.15);
-        margin-bottom: 1.5rem;
-    }
-
-    /* Calculator Display Screen */
+    /* =========================================
+       ILLUMINATED HIGH-CONTRAST SCREEN
+       (Pure Glowing White Characters on Deep Ocean Screen)
+       ========================================= */
     .calc-screen {
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        border: 2px solid #bae6fd;
-        border-radius: 20px;
-        padding: 18px 24px;
-        margin-bottom: 20px;
-        box-shadow: inset 0 2px 6px rgba(2, 132, 199, 0.08), 0 4px 15px rgba(186, 230, 253, 0.5);
+        background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%) !important;
+        border: 2.5px solid #7dd3fc !important;
+        border-radius: 22px !important;
+        padding: 20px 26px !important;
+        margin-bottom: 20px !important;
+        box-shadow: 0 10px 30px rgba(2, 132, 199, 0.35), inset 0 2px 8px rgba(0, 0, 0, 0.25) !important;
         text-align: right;
         font-family: 'SF Mono', 'Courier New', monospace;
     }
 
     .screen-mem-tag {
-        color: #0284c7;
-        font-size: 0.85rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
+        color: #e0f2fe !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
+        text-shadow: 0 0 8px rgba(224, 242, 254, 0.6);
     }
 
     .screen-main {
-        color: #0369a1;
-        font-size: 2.7rem;
-        font-weight: 800;
-        line-height: 1.2;
-        word-break: break-all;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        color: #ffffff !important;
+        font-size: 3.1rem !important;
+        font-weight: 900 !important;
+        line-height: 1.2 !important;
+        word-break: break-all !important;
+        letter-spacing: 0.02em;
+        text-shadow: 0 0 16px rgba(255, 255, 255, 0.85), 0 0 28px rgba(56, 189, 248, 0.9) !important;
     }
 
-    /* Button Styling: Soft Pastel Blue Palette */
+    /* =========================================
+       BUTTON STYLING (BRIGHT & CRISP TYPOGRAPHY)
+       ========================================= */
     div[data-testid="column"] button {
         width: 100% !important;
-        height: 52px !important;
-        font-size: 1.15rem !important;
-        font-weight: 700 !important;
+        height: 54px !important;
+        font-size: 1.35rem !important;
+        font-weight: 800 !important;
         border-radius: 14px !important;
-        border: 1.5px solid #bae6fd !important;
+        border: 2px solid #bae6fd !important;
         background: #ffffff !important;
-        color: #0c4a6e !important;
+        color: #0369a1 !important;
         transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 3px 8px rgba(2, 132, 199, 0.08) !important;
+        box-shadow: 0 4px 10px rgba(2, 132, 199, 0.12) !important;
         margin-bottom: 7px !important;
     }
 
     div[data-testid="column"] button:hover {
         transform: translateY(-2px);
         background: #e0f2fe !important;
-        border-color: #7dd3fc !important;
-        box-shadow: 0 8px 16px rgba(2, 132, 199, 0.16) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 8px 18px rgba(2, 132, 199, 0.22) !important;
         color: #0284c7 !important;
     }
 
     div[data-testid="column"] button:active {
         transform: translateY(1px);
-        box-shadow: 0 2px 5px rgba(2, 132, 199, 0.1) !important;
+        box-shadow: 0 2px 5px rgba(2, 132, 199, 0.15) !important;
     }
 
     /* Primary Accent Button (Equals =) */
     div[data-testid="column"] button[kind="primary"] {
         background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%) !important;
         color: #ffffff !important;
+        font-size: 1.65rem !important;
+        font-weight: 900 !important;
         border: none !important;
-        box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35) !important;
+        box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45) !important;
     }
 
     div[data-testid="column"] button[kind="primary"]:hover {
         background: linear-gradient(135deg, #7dd3fc 0%, #0369a1 100%) !important;
-        box-shadow: 0 8px 22px rgba(2, 132, 199, 0.45) !important;
+        box-shadow: 0 8px 24px rgba(2, 132, 199, 0.55) !important;
     }
 
-    /* Running Tape / Infinite History Card */
-    .tape-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
-        padding-bottom: 8px;
-        border-bottom: 2px dashed #bae6fd;
-    }
-
+    /* =========================================
+       RUNNING TAPE / INFINITE HISTORY CARDS
+       ========================================= */
     .tape-item {
-        background: rgba(240, 249, 255, 0.95);
-        border: 1.5px solid #bae6fd;
-        border-radius: 14px;
-        padding: 12px 14px;
-        margin-bottom: 10px;
-        box-shadow: 0 2px 8px rgba(2, 132, 199, 0.06);
-        transition: transform 0.15s ease;
+        background: #ffffff !important;
+        border: 2px solid #bae6fd !important;
+        border-radius: 16px !important;
+        padding: 14px 16px !important;
+        margin-bottom: 12px !important;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1) !important;
+        transition: transform 0.15s ease, border-color 0.15s ease;
     }
 
     .tape-item:hover {
         transform: scale(1.01);
-        border-color: #38bdf8;
+        border-color: #38bdf8 !important;
     }
 
     .tape-time {
-        font-size: 0.72rem;
+        font-size: 0.78rem;
         color: #64748b;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.05em;
     }
 
     .tape-equation {
-        color: #334155;
-        font-size: 1.05rem;
-        font-weight: 600;
+        color: #0c4a6e !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
         word-break: break-all;
     }
 
     .tape-result {
-        color: #0284c7;
-        font-size: 1.4rem;
-        font-weight: 800;
+        color: #0284c7 !important;
+        font-size: 1.65rem !important;
+        font-weight: 900 !important;
         word-break: break-all;
-    }
-
-    /* Compact tape action buttons */
-    .stButton button.tape-action-btn {
-        height: 32px !important;
-        font-size: 0.82rem !important;
-        padding: 2px 8px !important;
-        border-radius: 8px !important;
-        margin-top: 4px !important;
+        text-shadow: 0 1px 2px rgba(2, 132, 199, 0.15);
     }
 </style>
 
-<!-- Animated Ocean Waves HTML injected into background -->
+<!-- Animated Flying Seagulls HTML in the Sky -->
+<div class="seagull-sky">
+    <!-- Seagull 1 -->
+    <div class="seagull seagull-1">
+        <svg viewBox="0 0 80 30">
+            <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
+        </svg>
+    </div>
+    <!-- Seagull 2 -->
+    <div class="seagull seagull-2">
+        <svg viewBox="0 0 80 30">
+            <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
+        </svg>
+    </div>
+    <!-- Seagull 3 -->
+    <div class="seagull seagull-3">
+        <svg viewBox="0 0 80 30">
+            <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
+        </svg>
+    </div>
+    <!-- Seagull 4 -->
+    <div class="seagull seagull-4">
+        <svg viewBox="0 0 80 30">
+            <path d="M 0 16 Q 20 0 40 12 Q 60 0 80 16 Q 60 7 40 16 Q 20 7 0 16 Z" fill="#ffffff"/>
+        </svg>
+    </div>
+</div>
+
+<!-- Animated Ocean Waves HTML in the Background -->
 <div class="ocean-wrapper">
     <div class="ocean-wave wave-back"></div>
     <div class="ocean-wave wave-mid"></div>
@@ -236,8 +339,8 @@ calc = st.session_state.calc_state
 
 # Sidebar - Settings, Memory, and Quick Reference
 with st.sidebar:
-    st.markdown("## 🌊 Ocean Calculator")
-    st.caption("Pastel Blue Edition • Precision AST Math")
+    st.markdown("## HARGUNS CALCULATOR 🤍")
+    st.caption("Pastel Ocean Edition • Precision AST Engine")
 
     st.markdown("---")
     st.markdown("### 💾 Memory Registers")
@@ -251,11 +354,11 @@ with st.sidebar:
             st.rerun()
 
     st.markdown("---")
-    st.markdown("### ℹ️ Tappable History Guide")
+    st.markdown("### 👆 Tappable History Guide")
     st.markdown("""
-    - **Tap Result**: Instantly replaces the current display with that number.
-    - **Tap (+ Add)**: Appends `+ [Result]` to chain into your active calculation.
-    - **Tap Equation**: Reloads the full equation back onto the calculator.
+    - **Tap 📥 Insert**: Sets the active display to that past result.
+    - **Tap ➕ Add**: Chains `+ [Result]` straight into your ongoing formula.
+    - **Tap 🔁 Reload**: Reloads the full equation to inspect or edit.
     """)
 
     st.markdown("---")
@@ -268,11 +371,11 @@ with st.sidebar:
         - `pi`: 3.14159, `e`: 2.71828
         """)
 
-# Header Banner
+# Header Banner with HARGUNS CALCULATOR 🤍
 header_col1, header_col2 = st.columns([3, 1])
 with header_col1:
-    st.markdown("<h2 style='color: #0369a1; margin-bottom: 4px;'>🌊 Pastel Ocean Calculator</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #0284c7; font-size: 0.95rem; margin-top: 0;'>Interactive keypad • Infinite scrollable running tape • Tappable past calculations</p>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #0284c7; font-size: 2.4rem; font-weight: 800; margin-bottom: 2px;'>HARGUNS CALCULATOR 🤍</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #0369a1; font-size: 1.05rem; font-weight: 600; margin-top: 0;'>Pastel Ocean • Flying Seagulls • High-Contrast Screen • Infinite History Tape</p>", unsafe_allow_html=True)
 with header_col2:
     mode = st.radio("Input Mode", ["Keypad", "Formula Bar"], horizontal=True, label_visibility="collapsed")
 
@@ -280,7 +383,7 @@ with header_col2:
 col_calc, col_tape = st.columns([7, 5], gap="large")
 
 with col_calc:
-    # Calculator Screen
+    # Illuminated High-Contrast Screen
     mem_tag = f"MEM: {CalculatorEngine.format_result(calc.memory)}" if calc.memory != 0 else ""
     preview_tag = f"Ans: {calc.last_result}" if calc.last_result is not None else ""
 
@@ -288,7 +391,7 @@ with col_calc:
     <div class="calc-screen">
         <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
             <span class="screen-mem-tag">{mem_tag}</span>
-            <span class="screen-mem-tag" style="color: #64748b;">{preview_tag}</span>
+            <span class="screen-mem-tag" style="color: #bae6fd;">{preview_tag}</span>
         </div>
         <div class="screen-main">{calc.expression}</div>
     </div>
@@ -357,7 +460,7 @@ with col_tape:
     history_count = len(calc.history)
     t_head_col1, t_head_col2 = st.columns([3, 1])
     with t_head_col1:
-        st.markdown(f"<h4 style='color: #0284c7; margin-bottom: 0;'>📜 Running Tape ({history_count})</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color: #0284c7; font-weight: 800; margin-bottom: 0;'>📜 Running Tape ({history_count})</h4>", unsafe_allow_html=True)
         st.caption("Scrollable ledger • Tap any past value to insert")
     with t_head_col2:
         if history_count > 0:
@@ -373,7 +476,7 @@ with col_tape:
                 # Display Card
                 st.markdown(f"""
                 <div class="tape-item">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <span class="tape-time">🕒 {item['timestamp']}</span>
                         <span class="tape-time" style="color: #0284c7;">#{real_idx + 1}</span>
                     </div>
@@ -400,17 +503,17 @@ with col_tape:
         else:
             st.markdown("""
             <div style="text-align: center; padding: 60px 20px; color: #64748b;">
-                <div style="font-size: 2.5rem; margin-bottom: 8px;">🌊</div>
-                <div style="font-weight: 600; font-size: 1.1rem; color: #0284c7;">Tape is Ready</div>
-                <div style="font-size: 0.88rem; margin-top: 4px;">Perform calculations on the left, and every equation will be preserved on this scrollable tape!</div>
+                <div style="font-size: 2.6rem; margin-bottom: 8px;">🕊️ 🌊</div>
+                <div style="font-weight: 700; font-size: 1.15rem; color: #0284c7;">Tape is Ready</div>
+                <div style="font-size: 0.9rem; margin-top: 4px;">Calculate on the left, and every past result will be recorded here to tap and reuse!</div>
             </div>
             """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
 st.markdown(
-    "<div style='text-align: center; color: #0369a1; font-size: 0.85rem; font-weight: 500;'>"
-    "🌊 Pastel Ocean Calculator • Infinite Running Tape & Tappable Calculations • Precision Math"
+    "<div style='text-align: center; color: #0369a1; font-size: 0.9rem; font-weight: 600;'>"
+    "🤍 HARGUNS CALCULATOR • High-Contrast Illuminated Display • Pastel Ocean & Flying Seagulls"
     "</div>",
     unsafe_allow_html=True
 )

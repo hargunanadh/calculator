@@ -1,13 +1,18 @@
-# 🌊 Modern Pastel Ocean Calculator Pro
+# 🤍 HARGUNS CALCULATOR
 
-A feature-rich, interactive, and beautifully designed calculator application built with Python and Streamlit, styled in a soothing pastel blue theme with animated ocean waves.
+A feature-rich, interactive, and beautifully designed calculator application built with Python and Streamlit, styled in a soothing pastel blue theme with animated ocean waves, flying seagulls, and an illuminated high-contrast display.
 
 ## ✨ Features
 
-- **🎨 Soothing Pastel Blue & Ocean Waves Theme**:
+- **🤍 Custom Branded & Ocean Aesthetic**:
+  - Branded **HARGUNS CALCULATOR 🤍**.
+  - Animated white seagulls flying gracefully across the pastel sky with wing-flapping motion.
+  - Multi-layered, perpetual undulating SVG ocean waves at the bottom of the viewport.
   - Calming pastel sky-to-ocean palette (`#f0f9ff`, `#e0f2fe`, `#bae6fd`, `#7dd3fc`, `#0284c7`).
-  - Animated, multi-layered undulating ocean waves in the background.
-  - Translucent glassmorphism cards with smooth hover animations.
+- **💡 Illuminated High-Contrast Display**:
+  - Glowing, ultra-readable white text (`#ffffff` with gentle cyan halo glow) on a deep ocean marine screen.
+  - Large, bold 3.1rem typography so equations and results are crystal clear and easy to read.
+  - Crisp, bold button fonts (`1.35rem`, font-weight 800) with clear contrast.
 - **📜 Infinite Scrollable History (Running Tape)**:
   - Running tape of all past calculations that you can scroll through without losing previous work.
   - Item counter and one-click clear options.
